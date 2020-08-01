@@ -1,0 +1,21 @@
+{
+  "name": "people-dir",
+  "version": "1.0.0",
+  "description": "Portal for registering people visiting shops",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index",
+    "start": "node index"
+  },
+  "author": "Abhinav P",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.26",
+    "nodemon": "^2.0.4"
+  }
+}

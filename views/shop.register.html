@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+    <title>Register | Login</title>
+</head>
+<body>
+    <div id="RegisterOrLogin">
+        <div class="registerForn" v-if="!isLogin">
+            <div v-if="error">
+                {{errorMsg}}
+            </div>
+            
+            <form name="register" @submit.prevent>
+                <input type="text" id="shopName" v-model="shopDetails.shopName">
+                <label for="shopName">Shop name</label>
+                <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
+                <label for="shopMobile">Mobile</label>
+                <input type="text" id="shopLocation" v-model="shopDetails.shopLocation">
+                <label for="shopLocation">Location</label>
+                <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
+                <label for="shopPassword">Password</label>
+
+                <button @click="registerShop">Register</button @click="registerShop">
+                <a @click="isLogin=true">Already have account</a>
+            </form>
+        </div>
+        <div class="loginForm" v-if="isLogin">
+            <form name="login" @submit.prevent>
+                <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
+                <label for="shopMobile">Mobile</label>
+                <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
+                <label for="shopPassword">Password</label>
+                
+                <button>Login</button>
+                <a @click="isLogin=false">Create new Account</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el:"#RegisterOrLogin",
+            data:{
+                shopDetails:{
+                    shopName:null,
+                    shopMobile:null,
+                    shopPassword:null,
+                    shopLocation:null
+                },
+                error:false,
+                errorMsg:"Fill all fields",
+                isLogin:false
+            },
+            methods:{
+                registerShop(){
+                    //validation
+                    let isNullValue;
+
+                    if(this.shopDetails.shopName && this.shopDetails.shopMobile.length===10 && this.shopDetails.shopLocation && this.shopDetails.shopPassword){
+                        isNullValue=false
+                    }
+                    else{
+                        isNullValue=true
+                    }
+
+                    if(isNullValue){
+                        this.error=true;
+                        setTimeout(()=>{
+                                this.error=false
+                            },3000)
+                    }else{
+                        console.log("done")
+                    }
+                    
+                },
+                signIn(){
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>
