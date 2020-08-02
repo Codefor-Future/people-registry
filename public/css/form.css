@@ -11,29 +11,45 @@
 }
 .inputContainer input {
 	width: 100%;
-	padding: .5em .5em .5em 3.5em;
+    padding: .6em;
+    
 	border: 1px solid #aaa;
-	background: #fff;
+	background: white;
 	border-radius: 0;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
-	color: #333;
+    color: #333;
 }
 .inputContainer label {
+    z-index: 1;
+    font-size: .8rem;
 	position: relative;
-	top: -1.8em;
+	top: -3.8em;
 	left: .5em;
-	color: #aaa;
+	color: rgb(170, 170, 170);
     line-height: 1;
     background-color: white;
 }
 .inputContainer input:focus {
-	padding-left: .5em;
+    border: 1px solid rgba(0, 60, 255, 0.938);
 }
 .inputContainer input:focus + label {
-    top: -3.5em;
+    top: -4em;
     font-size: .8rem;
+}
+.button{
+    border: none;
+    background-color: rgba(8, 145, 163, 0.219);
+    width: 100%;
+    height: 40px;
+    color: rgba(29, 28, 28, 0.836);
+}
+.whiteText{
+    color: white;
+}
+.redText{
+    color: red;
 }

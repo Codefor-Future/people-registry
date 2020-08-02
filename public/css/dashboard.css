@@ -2,6 +2,7 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     color: rgba(0, 0, 0, 0.603);
     max-width: 480px;
+    margin: 0 auto;
 }
 .shopName{
     text-align: center;
@@ -24,13 +25,7 @@ hr{
     text-align: center;
     padding: 5px;
 }
-.addVisitor{
-    border: none;
-    background-color: rgba(8, 145, 163, 0.219);
-    width: 100%;
-    height: 40px;
-    color: rgba(29, 28, 28, 0.836);
-}
+
 .visitorFilter{
     text-align: center;
     padding: 5px;

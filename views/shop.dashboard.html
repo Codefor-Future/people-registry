@@ -21,7 +21,7 @@
             <button @click="showQr" v-if="!qr" class="showQrBtn">Show QR</button>
         </div>
         <div class="fullWidthBtn">
-            <button @click="showAddVisitor=true" class="addVisitor">Add visitor</button>
+            <button @click="showAddVisitor=true" class="button">Add visitor</button>
         </div>
         
         <div class="add-visitor-manually" v-if="showAddVisitor">
@@ -44,7 +44,7 @@
             <button @click="addVisitor">Add visitor</button>
         </div>
         <div class="fullWidthBtn">
-            <button @click="showVisitors=true" class="addVisitor">Show Visitors</button>
+            <button @click="showVisitors=true" class="button">Show Visitors</button>
         </div>
         
         <div class="visitors" v-if='showVisitors'>

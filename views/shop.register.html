@@ -7,34 +7,51 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/form.css">
     <title>Register | Login</title>
 </head>
 <body>
-    <div id="RegisterOrLogin">
-        <div class="wraper" v-if="!shopSaved">
+    <div id="RegisterOrLogin" style="max-width: 480px;color: rgba(0, 0, 0, 0.699);padding: 20px; margin: 0 auto;">
+        <div class="wraper" v-if="!shopSaved" style="max-width: 300px;margin: 0 auto;">
+            <h1 style="padding: 10px;text-align: center;">
+                Create your Register
+            </h1>
+            <p style="font-size:.9rem;">
+                
+            </p>
         <div class="registerForn" v-if="!isLogin">
-            <div v-if="error">
+            <div :class="[error?'redText':'whiteText']" style="margin: 20px 0;font-size: .8rem;">
                 {{errorMsg}}
             </div>
             
             <form name="register" @submit.prevent>
-                <input type="text" id="shopName" v-model="shopDetails.shopName">
-                <label for="shopName">Shop name</label>
-                <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
-                <label for="shopMobile">Mobile</label>
-                <input type="text" id="shopLocation" v-model="shopDetails.shopLocation">
-                <label for="shopLocation">Location</label>
-                <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
-                <label for="shopPassword">Password</label>
-
-                <button @click="registerShop">Register</button @click="registerShop">
-                <a @click="isLogin=true">Already have account</a>
+                <div class="inputContainer">
+                    <input type="text" id="shopName" v-model="shopDetails.shopName">
+                    <label for="shopName"><i class="fa fa-building" aria-hidden="true"></i> Shop name</label>
+                </div>
+                <div class="inputContainer">
+                    <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
+                    <label for="shopMobile"><i class="fa fa-mobile" aria-hidden="true"></i> Mobile</label>
+                </div>
+                <div class="inputContainer">
+                    <input type="text" id="shopLocation" v-model="shopDetails.shopLocation">
+                    <label for="shopLocation"><i class="fa fa-map-marker" aria-hidden="true"></i> Location</label>
+                </div>
+                <div class="inputContainer">
+                    <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
+                    <label for="shopPassword"><i class="fa fa-key" aria-hidden="true"></i> Password</label>
+                </div>
+                
+                
+                <button @click="registerShop" class="button">Register</button>
+                <a @click="isLogin=true" style="font-size: .8rem;line-height: 50px;display: block;text-align: center;">Already have account</a>
             </form>
         </div>
         <div class="loginForm" v-if="isLogin">
             <form name="login" @submit.prevent>
                 <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
                 <label for="shopMobile">Mobile</label>
+
                 <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
                 <label for="shopPassword">Password</label>
                 
@@ -43,9 +60,9 @@
             </form>
         </div>
         </div>
-        <div class="success" v-if="shopSaved">
-            <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i>
-            Shop saved. You are being redirected to your home page !
+        <div class="success" v-if="shopSaved" style="text-align: center;">
+            <i class="fa fa-check-circle fa-5x" aria-hidden="true" style="color: rgb(7, 216, 7);"></i><br>
+            We are creating your registry :)
         </div>
     </div>
 
@@ -90,14 +107,14 @@
                             setTimeout(()=>{
                                 this.error=false
                                 this.errorMsg= "Fill all details"
-                            },2000)
+                            },3000)
                         })
                         .then((res)=>{
                             if(res.status===200){
                                 this.shopSaved=true
                                 setTimeout(()=>{
                                     window.location.href= '/shop'
-                                },1000)
+                                },2000)
                             }
                         })
                     }
