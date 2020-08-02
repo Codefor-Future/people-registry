@@ -7,35 +7,59 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/form.css">
     <title>Home</title>
 </head>
 <body>
     <div id="dashBoard">
-        <img :src="qr" alt="">
+        <h1 class="shopName">{{shopDetails.name}}</h1>
+        <hr>
+        
         <div id="qr-code-container">
-            <button @click="showQr">Show QR</button>
+            <img :src="qr" alt="">
+            <button @click="showQr" v-if="!qr" class="showQrBtn">Show QR</button>
         </div>
-
-        <div class="add-visitor-manually">
-            Add visitor manually ! <br>
-
-            <input type="text" id="visitor-name" v-model="visitorName">
-            <label for="visitor-name">Visitor name</label>
-            <br>
-            <input type="text" id="visitor-mobile" v-model="visitorMobile">
-            <label for="visitor-mobile">Visitor Mobile</label>
-            <br>
-            <input type="text" id="visitor-Location" v-model="visitorLocation">
-            <label for="visitor-Location">Visitor Location</label>
+        <div class="fullWidthBtn">
+            <button @click="showAddVisitor=true" class="addVisitor">Add visitor</button>
+        </div>
+        
+        <div class="add-visitor-manually" v-if="showAddVisitor">
+            Add visitor manually ! <br><br>
+            <div class="inputContainer">
+                <input type="text" id="visitor-name" v-model="visitorName">
+                <label for="visitor-name">Visitor name</label>
+            </div>
+            <div class="inputContainer" class="visitorName">
+                <input type="text" id="visitor-mobile" v-model="visitorMobile">
+                <label for="visitor-mobile">Visitor Mobile</label>
+            </div>
+            
+            <div class="inputContainer">
+                <input type="text" id="visitor-Location" v-model="visitorLocation">
+                <label for="visitor-Location">Visitor Location</label>
+            </div class="visitorName">
+            
 
             <button @click="addVisitor">Add visitor</button>
         </div>
-
-        <div class="visitors">
+        <div class="fullWidthBtn">
+            <button @click="showVisitors=true" class="addVisitor">Show Visitors</button>
+        </div>
+        
+        <div class="visitors" v-if='showVisitors'>
+            <div class="visitorFilter">
+                <input type="date" class="datePicker" v-model="filterDate">
+                {{filterDate}}
+            </div>
             <div class="visitor" v-for="visitor in shopDetails.visitors">
-                {{visitor.visitorName}}
-                {{visitor.visitorMobile}}
-                {{visitor.visitorTime}}
+                <p class="visitorName">{{visitor.visitorName}}</p>
+                <div class="visitorDetails">
+                    <p><a :href="`tel:${visitor.visitorMobile}`">{{visitor.visitorMobile}}</a></p>
+                    <p>
+                        {{visitor.visitorTime.substring(0,21)}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
@@ -48,7 +72,10 @@
                 visitorName:null,
                 visitorMobile:null,
                 visitorLocation:null,
-                qr:null
+                qr:null,
+                showAddVisitor:false,
+                showVisitors:false,
+                filterDate:null
             },
             async mounted(){
                 let shopDetails= await axios.get('/shop/details')
@@ -75,6 +102,7 @@
                         axios.post('/visitor/fromShop',visitor)
                         .then((res)=>{
                             console.log('Visitor Added')
+                            this.showAddVisitor= false
                         })
                         .catch((err)=>{
                             console.log("errorrrr")

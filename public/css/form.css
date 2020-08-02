@@ -1,0 +1,39 @@
+.inputContainer p {
+	position: relative;
+}
+.inputContainer input,
+.inputContainer label {
+	-webkit-transition: all .2s;
+	transition: all .2s;
+	font-size: 15px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+}
+.inputContainer input {
+	width: 100%;
+	padding: .5em .5em .5em 3.5em;
+	border: 1px solid #aaa;
+	background: #fff;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	color: #333;
+}
+.inputContainer label {
+	position: relative;
+	top: -1.8em;
+	left: .5em;
+	color: #aaa;
+    line-height: 1;
+    background-color: white;
+}
+.inputContainer input:focus {
+	padding-left: .5em;
+}
+.inputContainer input:focus + label {
+    top: -3.5em;
+    font-size: .8rem;
+}
