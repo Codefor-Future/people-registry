@@ -10,6 +10,8 @@ const app= express();
 const MongoInit= require('./config/db.config')
 MongoInit();
 
+app.set('view engine', 'ejs');
+app.use(express.static('public'))
 app.use(bodyParser.json());
 app.use(cookieParser())
 

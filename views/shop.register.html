@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
     <title>Register | Login</title>
 </head>
 <body>
     <div id="RegisterOrLogin">
+        <div class="wraper" v-if="!shopSaved">
         <div class="registerForn" v-if="!isLogin">
             <div v-if="error">
                 {{errorMsg}}
@@ -40,6 +42,11 @@
                 <a @click="isLogin=false">Create new Account</a>
             </form>
         </div>
+        </div>
+        <div class="success" v-if="shopSaved">
+            <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i>
+            Shop saved. You are being redirected to your home page !
+        </div>
     </div>
 
     <script>
@@ -54,7 +61,8 @@
                 },
                 error:false,
                 errorMsg:"Fill all fields",
-                isLogin:false
+                isLogin:false,
+                shopSaved:false
             },
             methods:{
                 registerShop(){
@@ -74,7 +82,24 @@
                                 this.error=false
                             },3000)
                     }else{
-                        console.log("done")
+                        axios.post('/shop/register',{newShop:this.shopDetails})
+                        .catch((err)=>{
+                            this.error= true
+                            this.errorMsg= err.response.data
+
+                            setTimeout(()=>{
+                                this.error=false
+                                this.errorMsg= "Fill all details"
+                            },2000)
+                        })
+                        .then((res)=>{
+                            if(res.status===200){
+                                this.shopSaved=true
+                                setTimeout(()=>{
+                                    window.location.href= '/shop'
+                                },1000)
+                            }
+                        })
                     }
                     
                 },

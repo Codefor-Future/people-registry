@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const MongoUrl= process.env.MongoUrl 
+const MongoUrl= process.env.MongoUrl
 
 MongoInit=()=>{
     mongoose.connect(MongoUrl,{ useNewUrlParser: true,useUnifiedTopology: true  },function(err){

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <title><%= data.shopName %></title>
+</head>
+<body>
+    <div id="visitor">
+        <h2><%= data.shopName %></h2>
+        <div class="form" v-if="!recorded">
+            <input type="text" name="" id="visitorName" v-model="visitor.name">
+            <label for="visitorName">Name</label><br>
+
+            <input type="text" name="" id="visitorMobile" v-model="visitor.mobile">
+            <label for="visitorName">Mobile</label><br>
+
+            <input type="text" name="" id="visitorlocation" v-model="visitor.location">
+            <label for="visitorlocation">Location</label>
+
+            <button @click="registerVisitor">
+                Confirm your visit
+            </button>
+        </div>
+        <div class="success" v-if="recorded">
+            <i class="fa fa-check-circle fa-5x" aria-hidden="true"></i>
+        </div>
+    </div>
+
+
+    <script>
+        new Vue({
+            el:"#visitor",
+            data:{
+                visitor:{
+                    name:null,
+                    mobile:null,
+                    location:null
+                },
+                recorded:false
+            },
+            mounted(){
+                this.name= localStorage.getItem('Name')?localStorage.getItem('Name'):null;
+                this.mobile= localStorage.getItem('Name')?localStorage.getItem('Name'):null;
+            },
+            methods:{
+                registerVisitor(){
+                    axios.post(window.location.href,this.visitor)
+                    .then(res=>{
+                        this.recorded = true;
+                        localStorage.setItem('Name', this.visitor.name);
+                        localStorage.setItem('Mobile',this.visitor.mobile)
+                    })
+                    .catch(err=>{
+                        console.log(err.response)
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+</html>
