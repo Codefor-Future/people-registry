@@ -40,6 +40,7 @@
     font-size: .9rem;
     border-bottom: .5px solid rgba(0, 0, 0, 0.103);
     margin: 5px 0;
+    width: 80%;
 }
 .inputContainer{
     font-weight: bold;
@@ -76,7 +77,7 @@
         transform: scale(0);
     }
     50%{
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     100%{
         transform: scale(1);
@@ -87,7 +88,7 @@
         transform: scale(1);
     }
     50%{
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
     100%{
         transform: scale(0);

@@ -11,12 +11,14 @@
     <title><%= data.shopName %></title>
 </head>
 <body>
-    <div id="visitor" style="max-width: 480px; margin:0 auto; text-align: center;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
-        <h1 style="margin: 20px auto 50px auto; color:rgba(0, 0, 0, 0.774)"><%= data.shopName %></h1>
+    <div id="visitor" style="max-width: 480px; margin:0 auto;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+        <h1 style=" text-align: center;margin: 20px auto 50px auto; color:rgba(0, 0, 0, 0.774)"><%= data.shopName %></h1>
         <hr>
-        <p v-if="!recorded" style="color: rgba(0, 0, 0, 0.63); margin: 30px;">Please provide your Name,<br>Mobile and Location information.<br><br>
+        <p v-if="!recorded" style=" text-align: center;color: rgba(0, 0, 0, 0.63); margin: 30px auto;">Please provide your Name,<br>Mobile and Location information.<br><br>
             Lets fight together :)
-        </p><br><br>
+        </p><br>
+        <p v-if="error" style="color:rgba(255, 0, 0, 0.726); font-size: .9rem;text-align: center;">Please provide correct information</p>
+        <br>
         <div class="form" style="padding: 10px 40px;" v-if="!recorded">
             <div class="inputContainer">
                 <input type="text" name="" id="visitorName" v-model="visitor.name">
@@ -33,13 +35,15 @@
                 <label for="visitorlocation">Location</label>
             </div>
             <br>
-            <button @click="registerVisitor" class="button">
-                Confirm your visit
-            </button>
+            <div style=" text-align: center;">
+                <button @click="registerVisitor" class="button">
+                    Confirm your visit
+                </button>
+            </div>
         </div>
-        <div class="success" v-if="recorded">
-            <i class="fa fa-check-circle fa-5x" style="color: rgb(49, 211, 0);" aria-hidden="true"></i>
-            <p>Your visit have been succesfully recorded</p>
+        <div class="success" style="text-align: center;" v-if="recorded">
+            <i class="fa fa-check-circle fa-5x" style="color: rgba(44, 177, 3, 0.925);" aria-hidden="true"></i>
+            <p>Your visit have been successfully recorded</p>
         </div>
     </div>
     <style>
@@ -57,22 +61,37 @@
                     mobile:null,
                     location:null
                 },
-                recorded:false
+                recorded:false,
+                error:false
             },
             mounted(){
-                this.name= localStorage.getItem('Name')?localStorage.getItem('Name'):null;
-                this.mobile= localStorage.getItem('Name')?localStorage.getItem('Name'):null;
+                this.visitor.name= localStorage.getItem('Name')?localStorage.getItem('Name'):null;
+                this.visitor.mobile= localStorage.getItem('Mobile')?localStorage.getItem('Mobile'):null;
+                this.visitor.location= localStorage.getItem('Location')?localStorage.getItem('Location'):null;
             },
             methods:{
                 registerVisitor(){
+                    if(!this.visitor.name || !this.visitor.mobile || !this.visitor.mobile || this.visitor.mobile.length!=10){
+                        this.error=true
+                        setTimeout(()=>{
+                            this.error=false
+                        },3000)
+                        return;
+                    }
                     axios.post(window.location.href,this.visitor)
                     .then(res=>{
                         this.recorded = true;
                         localStorage.setItem('Name', this.visitor.name);
                         localStorage.setItem('Mobile',this.visitor.mobile)
+                        localStorage.setItem('Location',this.visitor.location)
                     })
                     .catch(err=>{
-                        console.log(err.response)
+                        if(err){
+                            this.error=true
+                            setTimeout(()=>{
+                                this.error=false
+                            },3000)
+                        }
                     })
                 }
             }

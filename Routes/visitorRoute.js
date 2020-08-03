@@ -43,6 +43,8 @@ router.post('/:shopId',async(req,res)=>{
         shop.save((err)=>{
             if(!err){
                 res.send("Visit Recorded")
+            }else{
+                res.status(403).send("Check you information")
             }
         })
     }
