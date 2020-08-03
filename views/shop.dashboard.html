@@ -89,7 +89,7 @@
                 //qr code
                 const data= document.cookie.split("=")[1]
                     
-                const server= "http://localhost:8000/visitor/";
+                const server= "https://visitors-register.herokuapp.com/visitor/";
                 this.qr=`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${server}${data}`
             },
             methods:{
