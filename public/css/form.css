@@ -13,15 +13,18 @@
 	width: 100%;
     padding: .6em;
     
-	border: 1px solid #aaa;
+	border: 1px solid rgba(170, 170, 170, 0.534);
 	background: white;
-	border-radius: 0;
+	border-radius: 5px;
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	appearance: none;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
     color: #333;
+}
+input :focus{
+	outline: none;
 }
 .inputContainer label {
     z-index: 1;
@@ -38,12 +41,14 @@
 }
 .inputContainer input:focus + label {
     top: -4em;
-    font-size: .8rem;
+	font-size: .8rem;
+	color: rgba(0, 0, 0, 0.726);
 }
 .button{
     border: none;
-    background-color: rgba(8, 145, 163, 0.219);
-    width: 100%;
+	background-color: rgba(8, 145, 163, 0.219);
+	border-radius: 5px;
+    width: 80%;
     height: 40px;
     color: rgba(29, 28, 28, 0.836);
 }

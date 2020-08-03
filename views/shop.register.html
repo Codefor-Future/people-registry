@@ -13,8 +13,11 @@
 <body>
     <div id="RegisterOrLogin" style="max-width: 480px;color: rgba(0, 0, 0, 0.699);padding: 20px; margin: 0 auto;">
         <div class="wraper" v-if="!shopSaved" style="max-width: 300px;margin: 0 auto;">
-            <h1 style="padding: 10px;text-align: center;">
-                Create your Register
+            <h1 style="padding: 10px;text-align: center;" v-if="!isLogin">
+                Create Your Register
+            </h1>
+            <h1 style="padding: 10px;text-align: center;" v-if="isLogin">
+                Open Your Register
             </h1>
             <p style="font-size:.9rem;">
                 
@@ -41,22 +44,28 @@
                     <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
                     <label for="shopPassword"><i class="fa fa-key" aria-hidden="true"></i> Password</label>
                 </div>
+                <div style="text-align: center;">
+                    <button @click="registerShop" class="button">Register</button>
+                    <a @click="isLogin=true" style="font-size: .8rem;line-height: 50px;display: block;text-align: center;">Already have account</a>
+                </div>
                 
-                
-                <button @click="registerShop" class="button">Register</button>
-                <a @click="isLogin=true" style="font-size: .8rem;line-height: 50px;display: block;text-align: center;">Already have account</a>
             </form>
         </div>
         <div class="loginForm" v-if="isLogin">
             <form name="login" @submit.prevent>
-                <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
-                <label for="shopMobile">Mobile</label>
-
-                <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
-                <label for="shopPassword">Password</label>
+                <div class="inputContainer">
+                    <input type="text" id="shopMobile" v-model="shopDetails.shopMobile">
+                    <label for="shopMobile">Mobile</label>
+                </div>
+                <div class="inputContainer">
+                    <input type="text" id="shopPassword" v-model="shopDetails.shopPassword">
+                    <label for="shopPassword">Password</label>
+                </div>
+                <div style="text-align: center;">
+                    <button class="button">Login</button>
+                    <a @click="isLogin=false" style="font-size: .8rem;line-height: 50px;display: block;text-align: center;">Create new Account</a>
+                </div>
                 
-                <button>Login</button>
-                <a @click="isLogin=false">Create new Account</a>
             </form>
         </div>
         </div>

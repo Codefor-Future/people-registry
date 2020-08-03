@@ -1,0 +1,28 @@
+body{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    text-align: center;
+}
+h1{
+    color: rgba(0, 0, 0, 0.616);
+    text-align: center;
+    display: block;
+    min-height: 100px;
+}
+.about{
+    color: rgba(14, 14, 15, 0.637);
+    margin: 50px auto 30px auto;
+}
+.about p{
+    text-align: justify;
+}
+.codeScanningContainer{
+    text-align: center;
+    padding-top: 50px;
+}
+.codeScanning{
+    max-width: 300px;
+    max-height: 200px;
+}

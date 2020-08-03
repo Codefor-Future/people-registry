@@ -61,3 +61,38 @@ hr{
 .add-visitor-manually{
     padding: 10px;
 }
+.add-visitor-manually{
+    width: 80%;
+    margin: 0 auto;
+}
+.open-enter-active{
+    animation: open;
+    animation-duration: .5s;
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.open-leave-active{
+    animation: close;
+    animation-duration: .5s;
+}
+@keyframes open {
+    0%{
+        transform: scale(0);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+@keyframes close{
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(0);
+    }
+}

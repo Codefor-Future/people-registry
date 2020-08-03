@@ -18,36 +18,43 @@
         
         <div id="qr-code-container">
             <img :src="qr" alt="">
-            <button @click="showQr" v-if="!qr" class="showQrBtn">Show QR</button>
+            <p v-if="qr">Scan QR code</p>
         </div>
         <div class="fullWidthBtn">
             <button @click="showAddVisitor=true" class="button">Add visitor</button>
         </div>
-        
-        <div class="add-visitor-manually" v-if="showAddVisitor">
-            Add visitor manually ! <br><br>
-            <div class="inputContainer">
-                <input type="text" id="visitor-name" v-model="visitorName">
-                <label for="visitor-name">Visitor name</label>
+        <transition name="open">
+            <div class="add-visitor-manually" v-if="showAddVisitor">
+                <br><br>
+                <div class="inputContainer">
+                    <input type="text" id="visitor-name" v-model="visitorName"><br>
+                    <label for="visitor-name">Visitor name</label>
+                </div>
+                <div class="inputContainer" class="visitorName">
+                    <input type="text" id="visitor-mobile" v-model="visitorMobile"><br>
+                    <label for="visitor-mobile">Visitor Mobile</label>
+                </div>
+                
+                <div class="inputContainer">
+                    <input type="text" id="visitor-Location" v-model="visitorLocation"><br>
+                    <label for="visitor-Location">Visitor Location</label>
+                </div class="visitorName">
+                
+                <div style="text-align: center;">
+                    <button @click="addVisitor" style="background-color: rgba(51, 255, 0, 0.363);" class="button">Add visitor</button><br><br>
+                    <button @click="showAddVisitor=false" style="background-color: rgba(255, 0, 43, 0.11);" class="button">Cancel</button>
+                </div>
+                
             </div>
-            <div class="inputContainer" class="visitorName">
-                <input type="text" id="visitor-mobile" v-model="visitorMobile">
-                <label for="visitor-mobile">Visitor Mobile</label>
-            </div>
-            
-            <div class="inputContainer">
-                <input type="text" id="visitor-Location" v-model="visitorLocation">
-                <label for="visitor-Location">Visitor Location</label>
-            </div class="visitorName">
-            
-
-            <button @click="addVisitor">Add visitor</button>
-        </div>
+        </transition v-enter-active-class="openAnimation">
         <div class="fullWidthBtn">
             <button @click="showVisitors=true" class="button">Show Visitors</button>
         </div>
         
         <div class="visitors" v-if='showVisitors'>
+            <div style="text-align: center;">
+                <button @click="refreshVisitor" class="button" style="background-color: rgba(0, 255, 64, 0.041);">Refresh</button>
+            </div>
             <div class="visitorFilter">
                 <input type="date" class="datePicker" v-model="filterDate">
                 {{filterDate}}
@@ -78,19 +85,18 @@
                 filterDate:null
             },
             async mounted(){
-                let shopDetails= await axios.get('/shop/details')
-                this.shopDetails= shopDetails.data
+                this.refreshVisitor()
+                //qr code
+                const data= document.cookie.split("=")[1]
+                    
+                const server= "https://visitors-register.herokuapp.com/visitor/";
+                this.qr=`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${server}${data}`
             },
             methods:{
-                showQr(){
-                    const data= document.cookie.split("=")[1]
-                    
-                    const server= "https://visitors-register.herokuapp.com/visitor/";
-                    this.qr=`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${server}${data}`
-                    // document.querySelector('#qr-code-container').innerHTML = qr.createImgTag();
-                },
-                refreshVisitor(){
-
+                
+                async refreshVisitor(){
+                    let shopDetails= await axios.get('/shop/details')
+                    this.shopDetails= shopDetails.data
                 },
                 addVisitor(){
                     if(this.visitorLocation && this.visitorMobile.length===10 && this.visitorName){
