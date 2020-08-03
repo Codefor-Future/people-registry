@@ -8,10 +8,7 @@
     text-align: center;
     padding: 20px;
 }
-hr{
-    width: 35px;
-    border-bottom: .5px solid rgba(0, 0, 0, 0.137);
-}
+
 #qr-code-container{
     padding: 30px 20px 50px 20px;
     text-align: center;
